@@ -1,11 +1,29 @@
-- name: Install packages
+- name: Install packages core
   become: true
   apt:
-    name: [ "lsof", "curl", "dconf-editor", "nvidia-settings", "pavucontrol" ,"unzip","cmake","lua5.1","gettext"]
+    name: [ "lsof", "curl", "dconf-editor", "nvidia-settings", "pavucontrol" ,"unzip","solaar", "gnome-tweaks","gnome-shell-extensions"]
+  tags:
+    - install
+    - core
+
+- name: Dependencies for build neovim
+  become: true
+  apt:
+    name: [ "cmake","lua5.1","gettext" ]
   tags:
     - install
     - core
     - neovim
 
-
-
+- name: Install snaps
+  become: true
+  community.general.snap:
+    name:  
+      - code
+      - obsidian
+      - postman
+      - vlc
+    classic: true
+  tags:
+    - install
+    - snaps
