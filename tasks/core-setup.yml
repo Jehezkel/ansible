@@ -1,0 +1,11 @@
+- name: Install packages
+  become: true
+  apt:
+    name: [ "lsof", "curl", "dconf-editor", "nvidia-settings", "pavucontrol" ,"unzip","cmake","lua5.1","gettext"]
+  tags:
+    - install
+    - core
+    - neovim
+
+
+

@@ -1,0 +1,11 @@
+- hosts: localhost 
+  tasks:
+    - name: Install core tasks
+      ansible.builtin.import_tasks:
+        file: tasks/core-setup.yml
+    - name: Install ansible 
+      ansible.builtin.import_tasks:
+        file: tasks/nvim-setup.yml
+    - name: Setup git 
+      ansible.builtin.import_tasks:
+        file: tasks/git-setup.yml
