@@ -4,7 +4,7 @@
     scope: global
     value: sxedesign@gmail.com
   tags:
-    - get-settings
+    - git-settings
 
 - name: Git name setup 
   git_config:
@@ -12,7 +12,7 @@
     scope: global
     value: Ezechiel
   tags:
-    - get-settings
+    - git-settings
 
 
 
