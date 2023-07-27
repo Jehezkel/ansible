@@ -1,0 +1,10 @@
+- name: Install tmux
+  become: true
+  apt:
+    name: tmux
+  tags: &tags_for_tmux ["install", "tmux"]
+- name: Clone powerline repo
+  git:
+    repo: "https://github.com/tmux-plugins/tpm"
+    dest: ~/.tmux/plugins/tpm
+  tags: *tags_for_tmux

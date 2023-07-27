@@ -24,13 +24,4 @@
   shell: "cd {{ lookup('env', 'HOME') }}/neovim && make install"
   tags: *tags_for_neovim
 
-- name: add to zsh path
-  ansible.builtin.lineinfile:
-    path: "{{ lookup('env', 'HOME') }}/.zshrc"
-    line: '{{ item }}'
-  with_items:
-    - 'alias "vim"="nvim"'
-    - 'alias "vi"="nvim"'
-  tags:
-    - test
 

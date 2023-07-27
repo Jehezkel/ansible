@@ -1,18 +1,29 @@
-- hosts: localhost 
+- hosts: localhost
   tasks:
     - name: Install core tasks
       ansible.builtin.import_tasks:
         file: tasks/core-setup.yml
+
     - name: Install neovim
       ansible.builtin.import_tasks:
         file: tasks/nvim-setup.yml
-    - name: Setup git 
+
+    - name: Setup git
       ansible.builtin.import_tasks:
         file: tasks/git-setup.yml
-    - name: Setup zsh 
+
+    - name: Setup zsh
       ansible.builtin.import_tasks:
         file: tasks/zsh-setup.yml
+
+    - name: Setup tmux
+      ansible.builtin.import_tasks:
+        file: tasks/tmux-setup.yml
+
     - name: Setup node
       ansible.builtin.import_tasks:
         file: tasks/node-setup.yml
 
+    - name: Setup dotnet
+      ansible.builtin.import_tasks:
+        file: tasks/dotnet-setup.yml

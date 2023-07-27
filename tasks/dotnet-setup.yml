@@ -1,0 +1,6 @@
+- name: Dotnet install
+  become: true
+  shell: >
+    curl -o- https://dot.net/v1/dotnet-install.sh | bash -s -- --version latest 
+  tags:
+    - dotnet_install
