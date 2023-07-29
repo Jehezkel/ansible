@@ -1,10 +1,37 @@
+- name: Install Terminator
+  become: true
+  apt:
+    name: terminator
+  tags: &tags_for_tmux ["install", "tmux"]
+
 - name: Install tmux
   become: true
   apt:
     name: tmux
-  tags: &tags_for_tmux ["install", "tmux"]
-- name: Clone powerline repo
+  tags: *tags_for_tmux
+
+- name: Clone tpm repo
   git:
     repo: "https://github.com/tmux-plugins/tpm"
     dest: ~/.tmux/plugins/tpm
+  tags: *tags_for_tmux
+
+- name: ensure fonts directory
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.fonts"
+    state: directory
+  tags: *tags_for_tmux
+
+- name: SauceCodePro exists
+  shell: "ls {{ lookup('env', 'HOME') }}/.fonts/SauceCode*"
+  register: sauce_exists
+  ignore_errors: yes
+  tags: *tags_for_tmux
+
+- name: Download SauceCodePro
+  when: sauce_exists is failed
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/SourceCodePro.zip
+    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+    remote_src: yes
   tags: *tags_for_tmux

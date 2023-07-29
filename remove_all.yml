@@ -1,0 +1,74 @@
+- hosts: localhost
+  tasks:
+    - name: Remove core
+      become: true
+      apt:
+        name:
+          [
+            "lsof",
+            "curl",
+            "dconf-editor",
+            "nvidia-settings",
+            "pavucontrol",
+            "unzip",
+            "solaar",
+            "gnome-tweaks",
+            "gnome-shell-extensions",
+          ]
+        state: absent
+      tags:
+        - core
+    - name: Remove  Dependencies for build neovim
+      become: true
+      apt:
+        name: ["cmake", "lua5.1", "gettext"]
+        state: absent
+      tags:
+        - core
+        - neovim
+    - name: Install snaps
+      become: true
+      community.general.snap:
+        name:
+          - code
+          - obsidian
+          - postman
+          - vlc
+        state: absent
+      tags:
+        - snaps
+
+    - name: Remove config
+      file:
+        path: ~/.config
+        state: absent
+      tags:
+        - dotfiles
+
+    - name: remove terminator and tmux
+      become: true
+      apt:
+        name: [tmux, terminator]
+      tags:
+        - tmux
+    - name: SauceCodePro exists
+      shell: "rm -rf {{ lookup('env', 'HOME') }}/.fonts"
+      tags:
+        - tmux
+    - name: Remove neovim
+      shell: rm -rf ~/neovim
+      tags: ["neovim"]
+    - name: Remove zsh
+      become: true
+      apt:
+        name: zsh
+        state: absent
+      tags: zsh
+    - name: Remove zsh
+      file:
+        path: "{{ lookup('env', 'HOME') }}/.oh-my-zsh"
+        state: absent
+    - name: Remove zsh installer
+      file:
+        path: "{{ lookup('env', 'HOME') }}/.oh-my-installer"
+        state: absent
